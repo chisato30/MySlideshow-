@@ -1,5 +1,6 @@
 package com.example.myslideshow
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,9 @@ import com.example.myslideshow.databinding.ActivityMainBinding
 import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var player: MediaPlayer
+
     class MyAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
         private val resources = listOf(
@@ -43,6 +47,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        player = MediaPlayer.create(this,R.raw.getdown)
+        player.isLooping = true
+    }
+    override fun onResume() {
+        super.onResume()
+        player.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player.pause()
     }
 
 }
